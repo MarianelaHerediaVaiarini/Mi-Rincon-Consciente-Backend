@@ -3,12 +3,16 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { Resource } from 'src/entities/resource.entity';
 import { CreateResourceDto, UpdateResourceDto } from 'src/dto/resource.dto';
+import { ResourceType } from 'src/entities/resource-type.entity';
 
 @Injectable()
 export class ResourceService {
   constructor(
     @InjectRepository(Resource)
     private readonly resourceRepository: Repository<Resource>,
+
+    @InjectRepository(ResourceType)
+    private readonly resourceTypeRepository: Repository<ResourceType>,
   ) {}
 
   async getAll(): Promise<Resource[]> {
@@ -23,8 +27,20 @@ export class ResourceService {
     return resource;
   }
 
-  async getByType(type: number): Promise<Resource[]> {
-    return this.resourceRepository.find({ where: { type } });
+  async getByType(typeId: number): Promise<Resource[]> {
+    // Buscar el tipo de recurso (ResourceType) por ID
+    const type = await this.resourceTypeRepository.findOne({
+      where: { id: typeId },
+    });
+
+    if (!type) {
+      throw new NotFoundException('Tipo de recurso no encontrado');
+    }
+
+    // Buscar los recursos que coincidan con el tipo de recurso encontrado
+    return this.resourceRepository.find({
+      where: { type },
+    });
   }
 
   async create(createResourceDto: CreateResourceDto): Promise<Resource> {

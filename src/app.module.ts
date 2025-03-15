@@ -6,12 +6,15 @@ import { CategoriesModule } from './controllers/categories/categories.module';
 import { BlogModule } from './controllers/blog/blog.module';
 import { ResourceModule } from './controllers/resources/resources.module';
 import { Resource } from './entities/resource.entity';
+import { ResourceTypeModule } from './controllers/resources-type/resources-type.module';
+import { ResourceType } from './entities/resource-type.entity';
 
 @Module({
   imports: [
     CategoriesModule,
     BlogModule,
     ResourceModule,
+    ResourceTypeModule,
     TypeOrmModule.forRoot({
       type: 'postgres',
       host: 'localhost',
@@ -19,10 +22,9 @@ import { Resource } from './entities/resource.entity';
       username: 'marianelaheredia',
       password: 'MaguiHere-1705',
       database: 'mi_rincon_consciente',
-      entities: [Blog, Category, Resource],
+      entities: [Blog, Category, Resource, ResourceType],
       synchronize: false, // ¡Cuidado con esto en producción! Solo usar en desarrollo.
     }),
   ],
-
 })
 export class AppModule {}

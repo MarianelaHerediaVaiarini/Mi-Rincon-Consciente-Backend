@@ -1,11 +1,12 @@
 import { IsString, IsOptional, IsInt, IsArray, IsUrl } from 'class-validator';
+import { ResourceType } from 'src/entities/resource-type.entity';
 
 export class CreateResourceDto {
   @IsString()
   title: string;
 
   @IsInt()
-  type: number; 
+  type: ResourceType; 
 
   @IsString()
   @IsOptional()
@@ -37,9 +38,8 @@ export class UpdateResourceDto {
   @IsOptional()
   title?: string;
 
-  @IsInt()
   @IsOptional()
-  type?: number;
+  type: ResourceType;
 
   @IsString()
   @IsOptional()

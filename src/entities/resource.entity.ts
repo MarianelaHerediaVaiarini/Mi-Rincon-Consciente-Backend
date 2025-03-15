@@ -1,4 +1,5 @@
-import { Entity, PrimaryGeneratedColumn, Column, CreateDateColumn } from 'typeorm';
+import { Entity, PrimaryGeneratedColumn, Column, CreateDateColumn, ManyToOne, JoinColumn } from 'typeorm';
+import { ResourceType } from './resource-type.entity';
 
 @Entity('resources')
 export class Resource {
@@ -8,8 +9,9 @@ export class Resource {
   @Column()
   title: string;
 
-  @Column('int')
-  type: number; 
+  @ManyToOne(() => ResourceType, (resourceType) => resourceType.id)
+  @JoinColumn({ name: 'type' }) 
+  type: ResourceType;
 
   @Column({ nullable: true })
   description: string;
