@@ -28,7 +28,6 @@ export class ResourceService {
   }
 
   async getByType(typeId: number): Promise<Resource[]> {
-    // Buscar el tipo de recurso (ResourceType) por ID
     const type = await this.resourceTypeRepository.findOne({
       where: { id: typeId },
     });
@@ -37,7 +36,6 @@ export class ResourceService {
       throw new NotFoundException('Tipo de recurso no encontrado');
     }
 
-    // Buscar los recursos que coincidan con el tipo de recurso encontrado
     return this.resourceRepository.find({
       where: { type },
     });
