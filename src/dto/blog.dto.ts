@@ -35,3 +35,32 @@ export class CreateBlogDto {
   @IsOptional()
   tags?: string[];
 }
+export class UpdateBlogDto {
+  @IsString()
+  @IsOptional()
+  title?: string;
+
+  @IsString()
+  @IsOptional()
+  subtitle?: string;
+
+  @IsString()
+  @IsOptional()
+  summary?: string;
+
+  @IsString()
+  @IsOptional()
+  content?: string;
+
+  @IsString()
+  @IsOptional()
+  cover_image_url?: string;
+
+  @IsNumber()
+  @IsOptional()
+  category_id: number;
+
+  @IsArray()
+  @IsOptional()
+  tags?: string[];
+}

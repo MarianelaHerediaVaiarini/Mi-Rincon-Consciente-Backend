@@ -2,43 +2,45 @@ import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { Blog } from 'src/entities/blog.entity';
-import { CreateBlogDto} from 'src/dto/create-blog.dto';
-import { UpdateBlogDto } from 'src/dto/update-blog.dto';
+import { CreateBlogDto, UpdateBlogDto } from 'src/dto/blog.dto';
 import { Category } from 'src/entities/category.entity';
 
 @Injectable()
 export class BlogService {
   constructor(
     @InjectRepository(Blog)
-    private readonly blogRepository: Repository<Blog>,  
+    private readonly blogRepository: Repository<Blog>,
 
     @InjectRepository(Category)
-    private readonly categoryRepository: Repository<Category> 
+    private readonly categoryRepository: Repository<Category>,
   ) {}
 
   async create(createBlogDto: CreateBlogDto): Promise<Blog> {
-    const category = await this.categoryRepository.findOne({ where: { id: createBlogDto.category_id } });
-  
+    const category = await this.categoryRepository.findOne({
+      where: { id: createBlogDto.category_id },
+    });
+
     if (!category) {
       throw new Error('Category not found');
     }
-  
+
     const blog = this.blogRepository.create({
       ...createBlogDto,
-      category, 
+      category,
     });
-  
+
     return this.blogRepository.save(blog);
   }
-  
-  
 
   async findAll(): Promise<Blog[]> {
     return this.blogRepository.find({ relations: ['category'] });
   }
 
   async findOne(id: number): Promise<Blog> {
-    const blog = await this.blogRepository.findOne({ where: { id }, relations: ['category'] });
+    const blog = await this.blogRepository.findOne({
+      where: { id },
+      relations: ['category'],
+    });
     if (!blog) {
       throw new NotFoundException(`Blog con ID ${id} no encontrado.`);
     }
@@ -46,7 +48,10 @@ export class BlogService {
   }
 
   async findByCategory(categoryId: number): Promise<Blog[]> {
-    return this.blogRepository.find({ where: { category: { id: categoryId } }, relations: ['category'] });
+    return this.blogRepository.find({
+      where: { category: { id: categoryId } },
+      relations: ['category'],
+    });
   }
 
   async update(id: number, updateBlogDto: UpdateBlogDto): Promise<Blog> {

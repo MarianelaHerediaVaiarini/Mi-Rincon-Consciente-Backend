@@ -8,7 +8,7 @@ import {
   NotFoundException,
 } from '@nestjs/common';
 import { CategoriesService } from '../../services/category.service';
-import { CreateCategoryDto } from 'src/dto/create-category.dto';
+import { CreateCategoryDto } from 'src/dto/category.dto';
 import { Category } from 'src/entities/category.entity';
 
 @Controller('categories')
