@@ -1,4 +1,4 @@
-// src/categories/entities/category.entity.ts
+
 import { Entity, PrimaryGeneratedColumn, Column, OneToMany } from 'typeorm';
 import { Blog } from '../entities/blog.entity';
 

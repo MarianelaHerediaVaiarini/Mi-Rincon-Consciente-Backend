@@ -1,15 +1,14 @@
 import {
   IsString,
   IsOptional,
-  IsNotEmpty,
   IsArray,
   IsNumber,
 } from 'class-validator';
 
-export class CreateBlogDto {
+export class UpdateBlogDto {
   @IsString()
-  @IsNotEmpty()
-  title: string;
+  @IsOptional()
+  title?: string;
 
   @IsString()
   @IsOptional()
@@ -20,15 +19,15 @@ export class CreateBlogDto {
   summary?: string;
 
   @IsString()
-  @IsNotEmpty()
-  content: string;
+  @IsOptional()
+  content?: string;
 
   @IsString()
   @IsOptional()
   cover_image_url?: string;
 
   @IsNumber()
-  @IsNotEmpty()
+  @IsOptional()
   category_id: number;
 
   @IsArray()

@@ -25,13 +25,13 @@ export class Blog {
   content: string;
 
   @Column({ type: 'timestamp', default: () => 'CURRENT_TIMESTAMP' })
-  publishedAt: Date;
+  published_at: Date;
 
   @Column({ type: 'timestamp', default: () => 'CURRENT_TIMESTAMP' })
-  updatedAt: Date;
+  updated_at: Date;
 
   @Column({ nullable: true })
-  coverImageUrl: string;
+  cover_image_url: string;
 
   @ManyToOne(() => Category, (category) => category.blogs)
   @JoinColumn({ name: 'category_id' })

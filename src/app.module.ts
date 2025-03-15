@@ -3,10 +3,12 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { Category } from './entities/category.entity';
 import { Blog } from './entities/blog.entity';
 import { CategoriesModule } from './controllers/categories/categories.module';
+import { BlogModule } from './controllers/blog/blog.module';
 
 @Module({
   imports: [
     CategoriesModule,
+    BlogModule,
     TypeOrmModule.forRoot({
       type: 'postgres',
       host: 'localhost',
@@ -18,5 +20,6 @@ import { CategoriesModule } from './controllers/categories/categories.module';
       synchronize: false, // ¡Cuidado con esto en producción! Solo usar en desarrollo.
     }),
   ],
+  
 })
 export class AppModule {}
