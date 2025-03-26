@@ -8,6 +8,8 @@ import { ResourceModule } from './controllers/resources/resources.module';
 import { Resource } from './entities/resource.entity';
 import { ResourceTypeModule } from './controllers/resources-type/resources-type.module';
 import { ResourceType } from './entities/resource-type.entity';
+import { TherapiesModule } from './controllers/therapies/therapies.module';
+import { Therapy } from './entities/therapy.entity';
 
 @Module({
   imports: [
@@ -15,6 +17,7 @@ import { ResourceType } from './entities/resource-type.entity';
     BlogModule,
     ResourceModule,
     ResourceTypeModule,
+    TherapiesModule,
     TypeOrmModule.forRoot({
       type: 'postgres',
       host: 'localhost',
@@ -22,7 +25,7 @@ import { ResourceType } from './entities/resource-type.entity';
       username: 'marianelaheredia',
       password: 'MaguiHere-1705',
       database: 'mi_rincon_consciente',
-      entities: [Blog, Category, Resource, ResourceType],
+      entities: [Blog, Category, Resource, ResourceType, Therapy],
       synchronize: false, // ¡Cuidado con esto en producción! Solo usar en desarrollo.
     }),
   ],
