@@ -6,9 +6,10 @@ import {
   Delete,
   Param,
   NotFoundException,
+  Put,
 } from '@nestjs/common';
 import { CategoriesService } from '../../services/category.service';
-import { CreateCategoryDto } from 'src/dto/category.dto';
+import { CreateCategoryDto, UpdateCategoryDto } from 'src/dto/category.dto';
 import { Category } from 'src/entities/category.entity';
 
 @Controller('categories')
@@ -38,6 +39,11 @@ export class CategoriesController {
     }
     return category;
   }
+
+   @Put(':id')
+    update(@Param('id') id: number, @Body() updateCategoryDto: UpdateCategoryDto) {
+      return this.categoriesService.update(id, updateCategoryDto);
+    }
 
   @Delete(':id')
   async remove(@Param('id') id: string): Promise<void> {

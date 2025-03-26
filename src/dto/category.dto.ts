@@ -8,3 +8,12 @@ export class CreateCategoryDto {
   @IsString()
   description: string; 
 }
+
+export class UpdateCategoryDto {
+  @IsString()
+  @IsNotEmpty()
+  name: string; 
+
+  @IsString()
+  description: string; 
+}
