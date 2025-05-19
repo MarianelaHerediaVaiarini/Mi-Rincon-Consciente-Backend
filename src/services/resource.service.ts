@@ -16,14 +16,21 @@ export class ResourceService {
   ) {}
 
   async getAll(): Promise<Resource[]> {
-    return this.resourceRepository.find();
+    return this.resourceRepository.find({
+      relations: ['type'],
+    });
   }
 
   async getById(id: number): Promise<Resource> {
-    const resource = await this.resourceRepository.findOne({ where: { id } });
+    const resource = await this.resourceRepository.findOne({
+      where: { id },
+      relations: ['type'],
+    });
+
     if (!resource) {
       throw new NotFoundException(`Resource with ID ${id} not found`);
     }
+
     return resource;
   }
 
@@ -38,6 +45,7 @@ export class ResourceService {
 
     return this.resourceRepository.find({
       where: { type },
+      relations: ['type'],
     });
   }
 

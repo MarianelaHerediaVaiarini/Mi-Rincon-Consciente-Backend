@@ -10,6 +10,7 @@ import { ResourceTypeModule } from './controllers/resources-type/resources-type.
 import { ResourceType } from './entities/resource-type.entity';
 import { TherapiesModule } from './controllers/therapies/therapies.module';
 import { Therapy } from './entities/therapy.entity';
+import { SearchModule } from './controllers/search/search.module';
 
 @Module({
   imports: [
@@ -18,6 +19,7 @@ import { Therapy } from './entities/therapy.entity';
     ResourceModule,
     ResourceTypeModule,
     TherapiesModule,
+    SearchModule,
     TypeOrmModule.forRoot({
       type: 'postgres',
       host: 'localhost',
