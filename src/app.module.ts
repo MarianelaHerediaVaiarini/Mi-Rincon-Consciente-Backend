@@ -11,7 +11,8 @@ import { ResourceType } from './entities/resource-type.entity';
 import { TherapiesModule } from './controllers/therapies/therapies.module';
 import { Therapy } from './entities/therapy.entity';
 import { SearchModule } from './controllers/search/search.module';
-
+import * as dotenv from 'dotenv';
+dotenv.config();
 @Module({
   imports: [
     CategoriesModule,
@@ -22,13 +23,12 @@ import { SearchModule } from './controllers/search/search.module';
     SearchModule,
     TypeOrmModule.forRoot({
       type: 'postgres',
-      host: 'localhost',
-      port: 5432,
-      username: 'marianelaheredia',
-      password: 'MaguiHere-1705',
-      database: 'mi_rincon_consciente',
+      url:
+        process.env.DATABASE_URL ||
+        'postgresql://marianelaheredia:MaguiHere-1705@localhost:5432/mi_rincon_consciente',
       entities: [Blog, Category, Resource, ResourceType, Therapy],
-      synchronize: false, // ¡Cuidado con esto en producción! Solo usar en desarrollo.
+      synchronize: false,
+       ssl: { rejectUnauthorized: false },
     }),
   ],
 })
